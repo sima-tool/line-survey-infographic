@@ -1,0 +1,57 @@
+        :root {
+            --palette-dark-blue: #003F5C;
+            --palette-mid-blue: #444E86;
+            --palette-purple: #955196;
+            --palette-pink: #DD5182;
+            --palette-orange: #FF6E54;
+            --palette-yellow: #FFA600;
+            --palette-bg-light: #F8F9FA;
+            --palette-text-dark: #1F2937;
+            --palette-text-light: #6B7280;
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--palette-bg-light);
+            color: var(--palette-text-dark);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            height: 100%;
+        }
+        .stat-number {
+            font-size: 3.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--palette-mid-blue);
+        }
+        .stat-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--palette-text-light);
+        }
+        .list-item-box {
+            border-left: 4px solid var(--palette-dark-blue);
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            background-color: #F8F9FA;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+        }

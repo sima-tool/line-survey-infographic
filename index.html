@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE本格導入に関する現場社員の意識調査インフォグラフィック</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght @400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+        <header class="text-center my-8">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2" style="color: var(--palette-dark-blue);">LINE本格導入に関する現場社員の意識調査</h1>
+            <p class="text-lg" style="color: var(--palette-text-light);">調査結果の可視化レポート <span class="font-bold">(n=44)</span></p>
+        </header>
+
+        <!-- 1. エグゼクティブ・サマリーと目的 -->
+        <section class="mb-10">
+            <div class="card md:col-span-2">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: var(--palette-dark-blue);">エグゼクティブ・サマリー：二つの大きな期待</h2>
+                <p class="text-center text-base md:text-lg max-w-3xl mx-auto" style="color: var(--palette-text-light); line-height: 1.8;">
+                    本調査から、現場の社員はLINE導入に対し「業務効率化」と「顧客集客・販促」の二つの軸で非常に高い期待を寄せていることが明確になりました。特にアカウントの一本化による負担軽減と、クーポン配信による集客効果を強く求めています。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 修理連絡効率化予測 (Q6: 効率的になると予想した割合: 20/44 = 45.5%) -->
+                <div class="card flex flex-col justify-center items-center text-center">
+                    <div class="stat-number" style="color: var(--palette-mid-blue);">45.5%</div>
+                    <div class="stat-label mt-2">修理連絡の効率化を予測 (Q6)</div>
+                </div>
+                <!-- アカウント一本化負担軽減予測 (Q2: 軽減すると予想した割合: 35/44 = 79.5%) -->
+                <div class="card flex flex-col justify-center items-center text-center">
+                    <div class="stat-number" style="color: var(--palette-purple);">79.5%</div>
+                    <div class="stat-label mt-2">アカウント一本化で<br>負担軽減を予測 (Q2)</div>
+                </div>
+                <!-- LINE活用の目的 (Q1) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">LINE活用の目的 (Q1)</h3>
+                    <div class="chart-container" style="height: 250px; max-height: 300px;">
+                        <canvas id="purposeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 回答者属性と組織的影響の予測 -->
+        <section class="mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <!-- 回答者の所属部署構成 (属性) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">回答者の所属部署構成 (属性)</h3>
+                    <div class="chart-container">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                </div>
+                <!-- アカウント一本化による負担軽減予測 (Q2) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">アカウント一本化による負担軽減予測 (Q2)</h3>
+                    <div class="chart-container">
+                        <canvas id="unificationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 集客・販促への強い意欲 -->
+        <section class="mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- お客様がLINEに求めるメリット (Q3) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">お客様がLINEに求めるメリット (Q3)</h3>
+                    <div class="chart-container">
+                        <canvas id="customerNeedsChart"></canvas>
+                    </div>
+                </div>
+                <!-- 現場が導入したい集客施策 (Q4) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">現場が導入したい集客施策 (Q4)</h3>
+                    <div class="chart-container">
+                        <canvas id="staffWantsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 業務効率化への期待と運用課題 -->
+        <section class="mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 修理完了通知の好まれる手段 (Q5) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">修理完了通知の好まれる手段 (Q5)</h3>
+                    <div class="chart-container">
+                        <canvas id="q5Chart"></canvas>
+                    </div>
+                </div>
+                <!-- 修理連絡業務の効率化予測 (Q6) -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4">修理連絡業務の効率化予測 (Q6)</h3>
+                    <div class="chart-container">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q6 理由分析 -->
+        <section class="mb-10">
+            <div class="card">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: var(--palette-dark-blue);">Q6 効率化予測の理由：作業工数削減と確実性への期待</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 効率化の理由 -->
+                    <div class="bg-indigo-50 p-4 rounded-lg border-t-4 border-indigo-600 md:col-span-2">
+                        <h4 class="font-bold text-xl mb-3" style="color: var(--palette-mid-blue);">【効率的になると考える主な理由】</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-semibold text-lg mb-1">✅ 連絡工数の大幅な削減</p>
+                                <ul class="text-sm list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>**電話番号の打ち込みが不要**となり、時短につながる。</li>
+                                    <li>番号間違いによる連絡ミスのリスクがなくなる。</li>
+                                    <li>SMSの文字数制限がなくなり、伝えたい情報量を確保できる。</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg mb-1">✅ 確実性の向上と再連絡工数減</p>
+                                <ul class="text-sm list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>**既読機能**により、お客様の閲覧状況を確認でき安心。</li>
+                                    <li>電話に出られないお客様の回答遅延が解消される（営業時間外でも返答可能）。</li>
+                                    <li>画像や動画を活用でき、**口頭説明の手間が減る**。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 懸念の理由 -->
+                    <div class="bg-red-50 p-4 rounded-lg border-t-4 border-red-600">
+                        <h4 class="font-bold text-xl mb-3" style="color: var(--palette-pink);">【変わらない/非効率的と考える理由】</h4>
+                        <ul class="text-sm list-disc pl-5 space-y-1 text-gray-700">
+                            <li>連絡内容の確認や対応に要する**時間自体は変わらない**。</li>
+                            <li>「どのような運用になるのか**イメージが湧かない**」という不安。</li>
+                            <li>LINE利用客以外（特に高齢者）への**代替手段（電話/SMS）**が残る。</li>
+                            <li>LINEの宛先検索や名簿管理（本名ではない場合）に手間がかかる可能性。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 5. 運用上の最大の懸念（Q7）とその解決の方向性 - UPDATED SECTION -->
+        <section class="mb-10">
+            <div class="card md:col-span-2">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: var(--palette-dark-blue);">Q7. 運用上の最大の懸念とその対策 (n=36)</h2>
+                <p class="text-center text-base md:text-lg max-w-5xl mx-auto mb-6" style="color: var(--palette-text-light); line-height: 1.8;">
+                    現場社員の懸念は「販促と重要連絡の混在」による**メッセージ埋没リスク**に集中しています。これは、LINE運用成功の鍵が**高度なセグメント運用とルール作り**にあることを示しています。
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 最大の懸念点 (Q7) -->
+                <div class="card flex flex-col justify-center items-center text-center" style="background-color: #FFF1F2;">
+                    <div class="text-6xl mb-4" style="color: var(--palette-pink);"></div>
+                    <h3 class="text-2xl font-bold text-center mb-2" style="color: var(--palette-pink);">最大懸念：メッセージの埋没リスク (6件)</h3>
+                    <p class="text-lg font-medium" style="color: var(--palette-dark-blue);">
+                        「大切な修理連絡がクーポンなどの<br>販促メッセージに埋もれて気づかれない」
+                    </p>
+                    <p class="text-sm mt-3" style="color: var(--palette-text-light);">（アカウント一本化によるブロック率増加の懸念）</p>
+                </div>
+                
+                <!-- その他の高優先度懸念 -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4" style="color: var(--palette-dark-blue);">その他の高優先度懸念点</h3>
+                    <div class="space-y-3">
+                        <div class="list-item-box border-l-4 border-yellow-600">
+                            <span class="font-bold text-sm" style="color: var(--palette-orange);">運用・対応工数の増加 (5件)</span>
+                            <p class="text-sm text-gray-700">業務時間外の問い合わせ対応や、過剰な質問（見積もり依頼など）への対応負荷が増える懸念。</p>
+                        </div>
+                        <div class="list-item-box border-l-4 border-purple-600">
+                            <span class="font-bold text-sm" style="color: var(--palette-purple);">お客様層の対応課題 (4件)</span>
+                            <p class="text-sm text-gray-700">LINE非利用者（高齢者など）への代替手段（電話/SMS）が残り、連絡手段が複雑化する懸念。</p>
+                        </div>
+                        <div class="list-item-box border-l-4 border-blue-600">
+                            <span class="font-bold text-sm" style="color: var(--palette-mid-blue);">現場運用設計の課題 (4件)</span>
+                            <p class="text-sm text-gray-700">お客様検索の課題（名前の揺れ）や、誤送信リスク、スタッフの操作習熟に関する不安。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 成功条件の提言 -->
+                <div class="card">
+                    <h3 class="text-xl font-bold text-center mb-4" style="color: var(--palette-mid-blue);">懸念解消のための成功条件</h3>
+                    <div class="space-y-3">
+                        <div class="list-item-box border-l-4 border-green-600 bg-green-50">
+                            <span class="font-bold" style="color: var(--palette-dark-blue);">1. 目的別分離の実現:</span> 外部ツール（Lステップ等）を活用し、**販促と重要連絡を完全にセグメント**する。
+                        </div>
+                        <div class="list-item-box border-l-4 border-green-600 bg-green-50">
+                            <span class="font-bold" style="color: var(--palette-dark-blue);">2. 営業時間外の明確化:</span> **自動応答**を徹底し、対応時間外の問い合わせを抑制。カスタマーハラスメント（カスハラ）対策にも繋がる。
+                        </div>
+                        <div class="list-item-box border-l-4 border-green-600 bg-green-50">
+                            <span class="font-bold" style="color: var(--palette-dark-blue);">3. 連絡手段の優先順位設定:</span> 修理受付時に「LINEを第一優先」とする運用フローを徹底し、**手段の多重化を防ぐ**。
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. 現場からの具体的な要望と他ツールとの比較（Q8・Q9・Q10） -->
+        <section class="mb-10">
+            <div class="card">
+                <h2 class="text-2xl font-bold text-center mb-4" style="color: var(--palette-dark-blue);">現場からの具体的な要望と他ツールとの比較（Q8・Q9・Q10）</h2>
+                <p class="text-center text-base md:text-lg max-w-5xl mx-auto mb-6" style="color: var(--palette-text-light); line-height: 1.8;">
+                    自由記述の意見からは、LINEの機能を単なるメッセージ交換に留めず、**ポイントカードとの連携**など、より深い顧客体験の向上に活用したいという明確な要望が読み取れます。また、代替手段として**SMSのシンプルさ**も意識されています。
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg border-t-4 border-indigo-500">
+                        <h4 class="font-bold text-lg mb-2" style="color: var(--palette-mid-blue);">① メンバーサービスとの深い連携（Q9）</h4>
+                        <ul class="text-sm list-disc pl-5 space-y-1" style="color: var(--palette-text-dark);">
+                            <li>**ポイントカードのポイント数**や利用履歴をLINEで確認できるようにしたい。</li>
+                            <li>ショップカード（スタンプカード）機能は積極的に活用したい。</li>
+                            <li>お客様の会員情報と連携したクーポン配信を望む。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-t-4 border-yellow-500">
+                        <h4 class="font-bold text-lg mb-2" style="color: var(--palette-orange);">② 競合・代替手段（SMS）の意識（Q8）</h4>
+                        <ul class="text-sm list-disc pl-5 space-y-1" style="color: var(--palette-text-dark);">
+                            <li>修理連絡など一報性の通知は「ショートメール (SMS)」の**シンプルさが良い**と感じる。</li>
+                            <li>LINEは便利だが、メッセージが埋もれないかという不安があるため、SMSのような**「確実性」**を求めている。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-t-4 border-green-500">
+                        <h4 class="font-bold text-lg mb-2" style="color: var(--palette-dark-blue);">③ 複数アカウント運用への言及（Q10）</h4>
+                        <ul class="text-sm list-disc pl-5 space-y-1" style="color: var(--palette-text-dark);">
+                            <li>「できれば、販促と連絡でアカウントを分けたい」という意見が散見される。</li>
+                            <li>一本化運用に当たっては、**顧客にブロックさせないための工夫**が必須であるとの意識が高い。</li>
+                            <li>外部ツール（例：Lステップ）を活用してでも、機能分離と効率化を両立させたい。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center mt-12 py-6 border-t">
+            <p style="color: var(--palette-text-light);">LINE本格導入に関する現場社員の意識調査インフォグラフィック</p>
+        </footer>
+    </main>
+
+    <script>
+        window.onload = function () {
+            const pMid = '#444E86';
+            const aPurple = '#955196';
+            const aPink = '#DD5182';
+            const aOrange = '#FF6E54';
+            const pLight = '#CBD5E1';
+            const pYellow = '#FFA600'; 
+            const pDarkBlue = '#003F5C'; 
+            const totalN = 44; 
+
+            // 共通オプション
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12,
+                                family: "'Inter', 'Noto Sans JP', sans-serif"
+                            }
+                        }
+                    },
+                }
+            };
+            
+            // 縦棒グラフ用のオプション
+            const verticalBarChartOptions = {
+                ...chartOptions,
+                indexAxis: 'x', 
+                plugins: {
+                    ...chartOptions.plugins,
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        beginAtZero: true, 
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            // 横棒グラフ用のオプション
+            const horizontalBarChartOptions = {
+                ...chartOptions,
+                indexAxis: 'y', 
+                plugins: {
+                    ...chartOptions.plugins,
+                    legend: {
+                        display: false
+                    }
+                    
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            // パーセンテージ計算ヘルパー (分母はtotalN=44を使用)
+            const formatPct = (count) => {
+                return (count / totalN * 100).toFixed(1) + '%';
+            };
+
+            // -----------------------------------------------------
+            // データ定義
+            // -----------------------------------------------------
+
+            // Q1. LINE活用の目的 (n=44) [両方: 27, 展示会のみ: 14, 商品のみ: 0, 連絡用のみ: 3]
+            const q1Data = [27, 14, 0, 3];
+
+            // Q2. アカウント一本化による負担軽減予測 (n=44) [大幅: 17, 多少: 18, 変わらない/非効率: 9]
+            const q2Data = [17, 18, 9]; 
+
+            // Q3. お客様がLINEに求めるメリット (n=44) [お得な情報: 29, 修理連絡の確実性: 6, 迅速な対応: 6, 商品情報: 3]
+            const q3Data = [29, 6, 6, 3];
+
+            // Q4. 現場が導入したい集客施策 (n=44) [クーポン配信: 31, ショップカード: 16, ゲーム感覚: 5, セグメント配信: 5, その他: 4] 
+            const q4Data = [31, 16, 5, 5, 4];
+            const q4Labels = [
+                `クーポン配信 (${formatPct(q4Data[0])})`,
+                `ショップカード（スタンプラリー）機能 (${formatPct(q4Data[1])})`,
+                `ゲーム感覚の企画 (${formatPct(q4Data[2])})`,
+                `特定の商品紹介のセグメント配信 (${formatPct(q4Data[3])})`,
+                `その他 (${formatPct(q4Data[4])})`
+            ];
+            
+            // Q5. 修理完了通知の好まれる手段 (n=44) [LINE: 33, SMS: 8, 電話: 3] (暫定)
+            const q5Data = [33, 8, 3, 0];
+            const q5Labels = [
+                `LINE (${formatPct(q5Data[0])})`,
+                `ショートメール（SMS） (${formatPct(q5Data[1])})`,
+                `電話 (${formatPct(q5Data[2])})`,
+                `その他 (${formatPct(q5Data[3])})`, 
+            ];
+
+            // Q6. 修理連絡業務の効率化予測 (n=44) [非常に効率的: 8, わずかに効率的: 12, 変わらない: 9, 非効率になる: 3, 分からない: 12]
+            const q6Data = [8, 12, 9, 3, 12];
+
+            // 属性データ: 回答者の所属部署構成 (n=44) [店舗: 38, 営業: 2, 企画/管理: 2, その他: 2] 
+            const attrData = [38, 2, 2, 2];
+            
+            // -----------------------------------------------------
+            // グラフ描画
+            // -----------------------------------------------------
+
+            // Q1. LINE活用の目的
+            const ctx1 = document.getElementById('purposeChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        `両方実施したい (${formatPct(q1Data[0])})`, 
+                        `展示会情報のみ (${formatPct(q1Data[1])})`, 
+                        `商品紹介のみ (${formatPct(q1Data[2])})`, 
+                        `連絡用のみ (${formatPct(q1Data[3])})`,
+                    ],
+                    datasets: [{
+                        data: q1Data,
+                        backgroundColor: [pMid, aPurple, aPink, aOrange]
+                    }]
+                },
+                options: chartOptions
+            });
+
+            // Q2. アカウント一本化による負担軽減予測
+            const ctx4 = document.getElementById('unificationChart').getContext('2d');
+            new Chart(ctx4, {
+                type: 'doughnut',
+                data: {
+                    labels: [`大幅に軽減 (${formatPct(q2Data[0])})`, `多少軽減 (${formatPct(q2Data[1])})`, `変わらない/非効率 (${formatPct(q2Data[2])})`],
+                    datasets: [{
+                        data: q2Data,
+                        backgroundColor: [pMid, aPurple, aPink]
+                    }]
+                },
+                options: chartOptions
+            });
+
+            // Q3. お客様がLINEに求めるメリット
+            const ctx2 = document.getElementById('customerNeedsChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        `クーポンや特典などのお得な情報 (${formatPct(q3Data[0])})`,
+                        `修理連絡の確実性/利便性 (${formatPct(q3Data[1])})`,
+                        `迅速な問い合わせ対応 (${formatPct(q3Data[2])})`,
+                        `商品情報の閲覧 (${formatPct(q3Data[3])})`
+                    ],
+                    datasets: [{
+                        label: '回答数',
+                        data: q3Data,
+                        backgroundColor: [aPink, pMid, aPurple, pYellow] 
+                    }]
+                },
+                options: horizontalBarChartOptions
+            });
+
+            // Q4. 現場が導入したい集客施策
+            const ctx3 = document.getElementById('staffWantsChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: q4Labels,
+                    datasets: [{
+                        label: '回答数',
+                        data: q4Data,
+                        backgroundColor: [aOrange, aPurple, pMid, aPink, pLight] 
+                    }]
+                },
+                options: horizontalBarChartOptions
+            });
+            
+            // Q5. 修理完了通知の好まれる手段
+            const ctxQ5 = document.getElementById('q5Chart').getContext('2d');
+            new Chart(ctxQ5, {
+                type: 'doughnut',
+                data: {
+                    labels: q5Labels,
+                    datasets: [{
+                        data: q5Data,
+                        backgroundColor: [pMid, pYellow, aOrange, pLight] 
+                    }]
+                },
+                options: chartOptions
+            });
+
+
+            // Q6. 修理連絡業務の効率化予測
+            const ctx5 = document.getElementById('efficiencyChart').getContext('2d');
+            new Chart(ctx5, {
+                type: 'bar',
+                data: {
+                    labels: ['非常に効率的', 'わずかに効率的', '変わらない', '非効率になる', '分からない'],
+                    datasets: [{
+                        label: '回答数',
+                        data: q6Data,
+                        backgroundColor: [pMid, aPurple, aPink, aOrange, pLight]
+                    }]
+                },
+                options: verticalBarChartOptions 
+            });
+
+            // 属性データ: 回答者の所属部署構成
+            const ctxNew = document.getElementById('departmentChart').getContext('2d');
+            new Chart(ctxNew, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        `店舗 (${formatPct(attrData[0])})`, 
+                        `営業部門 (${formatPct(attrData[1])})`, 
+                        `企画/管理部門 (${formatPct(attrData[2])})`,
+                        `その他 (${formatPct(attrData[3])})`
+                    ],
+                    datasets: [{
+                        data: attrData,
+                        backgroundColor: [aOrange, pMid, aPink, pLight]
+                    }]
+                },
+                options: chartOptions
+            });
+
+        };
+    </script>
+</body>
+</html>
